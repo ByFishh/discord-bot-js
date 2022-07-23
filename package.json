@@ -1,0 +1,15 @@
+{
+  "name": "elliott",
+  "version": "1.0.0",
+  "description": "A simple discord bot to get pertinent chart and give it visibility to help member.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Théo Maringer",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.0.3",
+    "dotenv": "^16.0.1"
+  }
+}
