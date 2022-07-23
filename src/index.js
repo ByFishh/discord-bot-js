@@ -1,14 +1,25 @@
-const config = require("./config")
-
 require("dotenv").config()
 
-const { Client } = require('discord.js');
+const { Client, SlashCommandBuilder } = require('discord.js');
 const client = new Client({
     intents: 3276799
 });
 
+var fs = require('fs');
+
+var config = {
+    chartChannel: "1000502352970784878",
+    verificationChannel: "1000502368141578300",
+    listeningChannel: [
+        "1000502405533794365",
+        "1000502387355689061",
+        "1000502395748483302"
+    ]
+};
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    readConfig();
 });
 
 client.on('messageCreate', message => {
@@ -103,3 +114,27 @@ client.on('interactionCreate', interaction => {
 })
 
 client.login(process.env.DISCORD_TOKEN);
+
+function writeConfig() {
+    var data = JSON.stringify(config);
+
+    fs.writeFile('./config.json', data, function (err) {
+        if (err) {
+            console.log('There has been an error saving your configuration data.');
+            console.log(err.message);
+            return;
+        }
+        console.log('Configuration saved successfully.')
+    });
+}
+
+function readConfig() {
+    var data = fs.readFileSync('./config.json'),
+        config;
+    try {
+        config = JSON.parse(data);
+    }
+    catch (err) {
+        writeConfig();
+    }
+}
